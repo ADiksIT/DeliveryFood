@@ -155,6 +155,8 @@ button {
 }
 
 .user-name {
+    /* width: 70px; */
+    /* overflow: hidden; */
     display: none;
     margin-right: 20px;
     font-weight: bold;
@@ -233,26 +235,65 @@ button {
     justify-content: space-between;
     flex-wrap: wrap;
 }
-
+/* .restaurants__cards .cards__item {
+    max-width: 384px;
+    transition: 1.5s;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 7px;
+    margin-bottom: 30px;
+    overflow: hidden;
+  } */
+  /* .restaurants__cards .cards__item img {
+    transition: 1.5s;
+    max-width: 100%;
+  } */
+  /* .restaurants__cards .cards__item:hover {
+    box-shadow: 10px 14px 20px rgba(100, 100, 3, 0.4);
+  }
+  .restaurants__cards .cards__item:hover img {
+    transform: scale(1.2);
+  } */
 .card {
-    background: #ffffff;
+    /* background: #ffffff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 7px;
     overflow: hidden;
     margin-bottom: 30px;
     flex-basis: 31%;
+    text-decoration: none; */
+    /* padding-top: 20px; */
     text-decoration: none;
+    max-width: 384px;
+    transition: 1.5s;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 7px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    min-height: 373px;
 
 }
+.card:hover{
+    box-shadow: 10px 14px 20px rgba(100, 100, 3, 0.4);
+}
+.card:hover .card-image{
+    transform: scale(1.2);
+  }
 
 .card-restaurant {
     cursor: pointer
 }
 
 .card-image {
+    /* width: 100%;
+    height: 250px;
+    object-fit: cover; */
+    object-fit: scale-down;
     width: 100%;
     height: 250px;
-    object-fit: cover;
+    transition: 1.5s;
+    max-width: 100%;
 }
 
 
@@ -318,7 +359,14 @@ button {
     line-height: 32px;
     margin-left: 30px;
 }
-
+.come-back{
+    margin-left: 20px;
+    cursor: pointer;
+}
+.come-back:hover{
+    border: 1px solid #d9d9d9;
+    padding: 10px;
+}
 .rating {
     background-image: url("../img/icon/rating.svg");
     background-repeat: no-repeat;
@@ -608,7 +656,9 @@ button {
         max-width: 750px;
     }
 
-
+    .card-image {
+        object-fit: cover;
+    }
 
     .pizza {
         padding: 50px;
@@ -784,6 +834,8 @@ button {
     }
 
     .user-name {
+        width: 30px;
+        overflow: hidden;
         margin: 10px;
 
     }

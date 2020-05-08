@@ -155,8 +155,9 @@ button {
 }
 
 .user-name {
-    /* width: 70px; */
-    /* overflow: hidden; */
+    width: 100px;   
+    text-overflow: ellipsis;
+    overflow: hidden;
     display: none;
     margin-right: 20px;
     font-weight: bold;

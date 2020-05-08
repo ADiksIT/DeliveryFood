@@ -52,6 +52,7 @@ const toggleModalAuth = () => {
 };
 
 const addToCart = (event) => {
+	cart = JSON.parse(localStorage.getItem('cartUser'));
 	const target = event.target;
 	const buttonAddToCart = target.closest('.button-add-cart');
 	if (buttonAddToCart) {
@@ -143,7 +144,7 @@ const changeCount = (event) => {
 };
 
 const renderCart = (params) => {
-	cart = JSON.parse(localStorage.getItem('cartUser'));
+	//cart = JSON.parse(localStorage.getItem('cartUser'));
 	modalBody.textContent = '';
 	cart.forEach(({ id, title, cost, count }) => {
 		const itemCart = `
@@ -165,6 +166,8 @@ const renderCart = (params) => {
 	}, 0);
 	const modalPrice = document.querySelector('.modal-pricetag');
 	modalPrice.textContent = totalPrice + ' ₽';
+	console.log("==================================");
+	
 	localStorage.setItem('cartUser', JSON.stringify(cart));
 };
 
@@ -294,35 +297,33 @@ const createCardRestaurant = (item) => {
 //============/EVENTS================================
 
 const init = () => {
-getData('./db/partners.json')
-.then((data) => {
-	//console.log(data);
-	data.forEach(createCardRestaurant);
-		
-});
+	getData('./db/partners.json')
+	.then((data) => {
+		//console.log(data);
+		data.forEach(createCardRestaurant);
+			
+	});
 
-cartButton.addEventListener("click", () => {
-	renderCart();
-	toggleModal();
-});
-closeBtn.addEventListener("click", toggleModal);
-cardsRestaurants.addEventListener('click', openGoods);
-logo.addEventListener('click', hideRestaurantsProducts);
-cardsMenu.addEventListener('click', addToCart);
-modalBody.addEventListener('click', changeCount);
-clearCart.addEventListener('click', () => {
-	cart.length = 0;
-	renderCart();
-});
+	cartButton.addEventListener("click", () => {
+		renderCart();
+		toggleModal();
+	});
+	closeBtn.addEventListener("click", toggleModal);
+	cardsRestaurants.addEventListener('click', openGoods);
+	logo.addEventListener('click', hideRestaurantsProducts);
+	cardsMenu.addEventListener('click', addToCart);
+	modalBody.addEventListener('click', changeCount);
+	clearCart.addEventListener('click', () => {
+		cart.length = 0;
+		renderCart();
+	});
 
-checkAuth();
+	checkAuth();
 
-new Swiper('.swiper-container', {
-	loop : true,
-	autoplay : true
-});
-
-
+	new Swiper('.swiper-container', {
+		loop : true,
+		autoplay : true
+	});
 };
 
 init();

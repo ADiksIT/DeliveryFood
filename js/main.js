@@ -28,11 +28,21 @@ clearCart = document.querySelector('.clear-cart');
 
 let login = localStorage.getItem('delivery');
 
-let cart = [];// localStorage.getItem(JSON.parse('cartUser'));
+let cart = [];
 
 //============/VARIABLE==============================
 
 //============FUNCTION=================================
+
+const savedCart = () => {
+	localStorage.setItem(login, JSON.stringify(cart));
+};
+
+const loadCart = () => {
+	if (localStorage.getItem(login)) {
+		cart.push(...JSON.parse(localStorage.getItem(login)));
+	}	
+};
 
 const getData = async (url) => {
 	const response = await fetch(url);
@@ -52,7 +62,7 @@ const toggleModalAuth = () => {
 };
 
 const addToCart = (event) => {
-	cart = JSON.parse(localStorage.getItem('cartUser'));
+	//cart = JSON.parse(localStorage.getItem('cartUser'));
 	const target = event.target;
 	const buttonAddToCart = target.closest('.button-add-cart');
 	if (buttonAddToCart) {
@@ -70,9 +80,10 @@ const addToCart = (event) => {
 			cart.push({ title, cost, id, count : 1});
 			
 		}
-		localStorage.setItem('cartUser', JSON.stringify(cart));
+		//localStorage.setItem('cartUser', JSON.stringify(cart));
 		console.log(cart);
 	}
+	savedCart();
 	
 };
 
@@ -85,6 +96,8 @@ const authorized = () => {
 		cartButton.style.display = '';
 		buttonOut.removeEventListener('click', logOut);
 		localStorage.removeItem('delivery');
+		//localStorage.removeItem('cart');
+		cart.length = 0;
 		checkAuth();
 	};
 	userName.textContent = login;
@@ -93,6 +106,7 @@ const authorized = () => {
 	buttonOut.style.display = 'flex';
 	cartButton.style.display = 'flex';
 	buttonOut.addEventListener('click', logOut);
+	loadCart();
 };
 
 const checkAuth = () => login ? authorized() : noAuthorized();
@@ -120,6 +134,7 @@ const noAuthorized = () => {
 	buttonAuth.addEventListener('click', toggleModalAuth);
 	closeAuth.addEventListener('click', toggleModalAuth);
 	logInForm.addEventListener('submit', logIn);
+
 };
 
 const changeCount = (event) => {
@@ -140,7 +155,7 @@ const changeCount = (event) => {
 		}
 		renderCart();
 	}
-	
+	savedCart();
 };
 
 const renderCart = (params) => {
@@ -152,7 +167,8 @@ const renderCart = (params) => {
 				<span class="food-name">${title}</span>
 				<strong class="food-price"${cost} ₽</strong>
 				<div class="food-counter">
-					<button class="counter-button counter-minus" data-id="${id}">-</button>
+					<button class="counter-button 
+									counter-minus" data-id="${id}">-</button>
 					<span class="counter">${count}</span>
 					<button class="counter-button counter-plus" data-id="${id}">+</button>
 				</div>
@@ -168,7 +184,7 @@ const renderCart = (params) => {
 	modalPrice.textContent = totalPrice + ' ₽';
 	console.log("==================================");
 	
-	localStorage.setItem('cartUser', JSON.stringify(cart));
+	//localStorage.setItem('cartUser', JSON.stringify(cart));
 };
 
 const createCardGood = (item) => {
@@ -231,7 +247,7 @@ const openGoods = (event) => {
 			restaurants.classList.add('hide');
 
 			getData(`./db/partners.json`).then(data => {
-				let rest = data.find(rest => rest.products === restaurant.dataset.products);
+		let rest = data.find(rest => rest.products === restaurant.dataset.products);
 				createSectionHeading(rest);
 			});
 
@@ -264,7 +280,8 @@ const createCardRestaurant = (item) => {
 
 
 	let card = `
-		<a class="card card-restaurant" data-products="${products}" data-rest="${name}">
+		<a class="card card-restaurant" 
+				data-products="${products}" data-rest="${name}">
 			<img src="${image}" alt="${name}" class="card-image"/>
 			<div class="card-text">
 				<div class="card-heading">
